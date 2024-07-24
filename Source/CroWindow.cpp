@@ -3,6 +3,7 @@
  */
 
 #include "CroWindow.h"
+#include "WindowsThrowMacros.h"
 
 // Window Class Stuff
 CroWindow::WindowClass CroWindow::WindowClass::wndClass;
@@ -56,7 +57,7 @@ CroWindow::CroWindow( int width,int height,const char* name )
 	wr.bottom = height + wr.top;
 	if( AdjustWindowRect( &wr,WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,FALSE ) == 0 )
 	{
-		//throw CHWND_LAST_EXCEPT();
+		throw CHWND_LAST_EXCEPT();
 	}
 	// create window & get hWnd
 	hWnd = CreateWindowA(
@@ -68,7 +69,7 @@ CroWindow::CroWindow( int width,int height,const char* name )
 	// check for error
 	if( hWnd == nullptr )
 	{
-		//throw CHWND_LAST_EXCEPT();
+		throw CHWND_LAST_EXCEPT();
 	}
 	// newly created windows start off as hidden
 	ShowWindow( hWnd,SW_SHOWDEFAULT );	
@@ -81,7 +82,7 @@ CroWindow::CroWindow( int width,int height,const char* name )
 	rid.hwndTarget = nullptr;
 	if( RegisterRawInputDevices( &rid,1,sizeof( rid ) ) == FALSE )
 	{
-		//throw CHWND_LAST_EXCEPT();
+		throw CHWND_LAST_EXCEPT();
 	}
 }
 
